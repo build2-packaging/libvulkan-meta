@@ -6,15 +6,20 @@ switch $c.target.class
 {
     case 'windows'
     {
-        vulkan_inc_path = "$config.vulkan_meta.sdk_root/include/"
-        vulkan_ld_path =
-        if($c.target.cpu == 'x86_64')
+        if($config.vulkan_meta.sdk_root != "")
         {
-            vulkan_ld_path = "$config.vulkan_meta.sdk_root/lib/"
-        }
-        else
-        {
-            vulkan_ld_path = "$config.vulkan_meta.sdk_root/lib32/"
+            vulkan_ld_path =
+            if($c.target.cpu == 'x86_64')
+            {
+                vulkan_ld_path = "$config.vulkan_meta.sdk_root/lib/"
+            }
+            else
+            {
+                vulkan_ld_path = "$config.vulkan_meta.sdk_root/lib32/"
+            }
+
+            vulkan_poptions += "-I$config.vulkan_meta.sdk_root/include/"
+            vulkan_loptions += "-L$vulkan_ld_path"
         }
 
         if ($c.target.system == 'mingw32')
@@ -26,12 +31,17 @@ switch $c.target.class
             vulkan_libs += vulkan-1.lib
         }
 
-        vulkan_loptions += "-L$vulkan_ld_path"
-        vulkan_poptions += -DVK_PROTOTYPES "-I$vulkan_inc_path"
+        vulkan_poptions += -DVK_PROTOTYPES
     }
     case 'macos'
     {
+        if($config.vulkan_meta.sdk_root != "")
+        {
+            vulkan_poptions += "-I$config.vulkan_meta.sdk_root/include/"
+            vulkan_loptions += "-L$config.vulkan_meta.sdk_root/lib/"
+        }
 
+        vulkan_libs += -lvulkan
     }
     case 'linux'
     case 'bsd'
