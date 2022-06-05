@@ -11,5 +11,4 @@ h{*}: c.importable = true
 #
 test.target = $c.target
 
-config [string] config.vulkan_meta.sdk_root ?= $getenv(VULKAN_SDK)
-
+config [string] config.vulkan_meta.sdk_root ?= "$getenv(VULKAN_SDK)"
