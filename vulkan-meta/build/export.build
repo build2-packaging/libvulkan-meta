@@ -1,0 +1,6 @@
+$out_root/
+{
+  include vulkan-meta/
+}
+
+export $out_root/vulkan-meta/$import.target

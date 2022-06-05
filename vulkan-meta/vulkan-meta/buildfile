@@ -1,0 +1,50 @@
+vulkan_libs =
+vulkan_poptions =
+vulkan_loptions =
+
+switch $c.target.class
+{
+    case 'windows'
+    {
+        vulkan_inc_path = "$config.vulkan_meta.sdk_root/include/"
+        vulkan_ld_path =
+        if($c.target.cpu == 'x86_64')
+        {
+            vulkan_ld_path = "$config.vulkan_meta.sdk_root/lib/"
+        }
+        else
+        {
+            vulkan_ld_path = "$config.vulkan_meta.sdk_root/lib32/"
+        }
+
+        if ($c.target.system == 'mingw32')
+        {
+            vulkan_libs += -lvulkan-1
+        }
+        else
+        {
+            vulkan_libs += vulkan-1.lib
+        }
+
+        vulkan_loptions += "-L$vulkan_ld_path"
+        vulkan_poptions += -DVK_PROTOTYPES "-I$vulkan_inc_path"
+    }
+    case 'macos'
+    {
+
+    }
+    case 'linux'
+    case 'bsd'
+    default
+    {
+        vulkan_libs += -lvulkan
+    }
+}
+
+[rule_hint=c] lib{vulkan}:
+lib{vulkan}:
+{
+    c.export.loptions = $vulkan_loptions
+    c.export.poptions = $vulkan_poptions
+    c.export.libs = $vulkan_libs
+}

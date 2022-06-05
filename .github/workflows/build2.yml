@@ -1,0 +1,59 @@
+name: build2
+
+on: [push, pull_request]
+
+jobs:
+
+  # Job for building on Ubuntu
+  Ubuntu:
+    name: ${{matrix.config.name}}
+    runs-on: ${{matrix.config.os}}
+    strategy:
+      matrix:
+        config:
+          - name: Ubuntu gcc
+            os: ubuntu-latest
+            compiler_cc: gcc
+          - name: Ubuntu clang
+            os: ubuntu-latest
+            compiler_cc: clang
+
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          submodules: true
+      - uses: build2/setup-build2-github-action@v2
+        with:
+          build2-version: staged
+      - name: Install dependencies
+        run: sudo apt-get update && sudo apt-get install -y libvulkan-dev
+      - name: Configure
+        run: bdep init -C @${{matrix.config.compiler_cc}} cc config.c=${{matrix.config.compiler_cc}}
+      - name: Build
+        run: b -V
+
+  # Job for building on Windows
+  Windows:
+    name: ${{matrix.config.name}}
+    runs-on: ${{matrix.config.os}}
+    strategy:
+      matrix:
+        config:
+            - name: Windows msvc
+              os: windows-latest
+              compiler_cc: msvc
+            - name: Windows clang
+              os: windows-latest
+              compiler_cc: clang
+    steps:
+    - uses: actions/checkout@v3
+      with:
+        submodules: true
+    - uses: build2/setup-build2-github-action@v2
+      with:
+        build2-version: staged
+        build2-windows-compiler: ${{matrix.config.compiler_cc}}
+    - name: Configure
+      run: bdep init -C ../vulkan-meta-${{matrix.config.compiler_cc}} @${{matrix.config.compiler_cc}}
+    - name: Build
+      run: b -V

@@ -1,0 +1,15 @@
+: 1
+name: vulkan-meta
+version: 1.0.0-a.0.z
+project: vulkan-meta
+summary: Meta package to use Vulkan.
+license: MIT
+description-file: README.md
+topics: C++, Vulkan
+url: https://www.vulkan.org/
+doc-url: https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/index.html
+package-url: https://github.com/build2-packaging/vulkan-meta
+package-email: rookfighter@posteo.org
+builds: default
+depends: * build2 >= 0.15.0-
+depends: * bpkg >= 0.15.0-

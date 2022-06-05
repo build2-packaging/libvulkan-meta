@@ -1,0 +1,7 @@
+project = vulkan-meta
+
+using version
+using config
+using test
+using install
+using dist
