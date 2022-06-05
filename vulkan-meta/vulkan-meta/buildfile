@@ -18,8 +18,8 @@ switch $c.target.class
                 vulkan_ld_path = "$config.vulkan_meta.sdk_root/lib32/"
             }
 
-            vulkan_poptions += "-I$config.vulkan_meta.sdk_root/include/"
-            vulkan_loptions += "-L$vulkan_ld_path"
+            vulkan_poptions =+ "-I$config.vulkan_meta.sdk_root/include/"
+            vulkan_loptions =+ "/LIBPATH:$vulkan_ld_path"
         }
 
         if ($c.target.system == 'mingw32')
@@ -37,8 +37,8 @@ switch $c.target.class
     {
         if($config.vulkan_meta.sdk_root != "")
         {
-            vulkan_poptions += "-I$config.vulkan_meta.sdk_root/include/"
-            vulkan_loptions += "-L$config.vulkan_meta.sdk_root/lib/"
+            vulkan_poptions =+ "-I$config.vulkan_meta.sdk_root/include/"
+            vulkan_loptions =+ "-L$config.vulkan_meta.sdk_root/lib/"
         }
 
         vulkan_libs += -lvulkan
