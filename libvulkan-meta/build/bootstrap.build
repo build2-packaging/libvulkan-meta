@@ -1,4 +1,4 @@
-project = vulkan-meta-examples
+project = libvulkan-meta
 
 using version
 using config

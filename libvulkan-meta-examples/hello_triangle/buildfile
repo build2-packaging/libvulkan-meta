@@ -1,0 +1,3 @@
+import impl_libs = libvulkan-meta%lib{vulkan}
+
+./: exe{hello_triangle}: cxx{*} $impl_libs

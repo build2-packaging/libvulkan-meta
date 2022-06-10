@@ -1,8 +1,8 @@
 : 1
-name: vulkan-meta-examples
+name: libvulkan-meta
 version: 1.0.0-a.0.z
 project: vulkan-meta
-summary: Examples on how to use the vulkan-meta package.
+summary: Vulkan meta package.
 license: MIT
 description-file: README.md
 topics: C++, Vulkan
@@ -14,4 +14,3 @@ builds: default
 
 depends: * build2 >= 0.15.0-
 depends: * bpkg >= 0.15.0-
-depends: vulkan-meta == $

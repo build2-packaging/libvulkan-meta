@@ -1,2 +1,2 @@
-import pkgs = {vulkan-meta*/}
+import pkgs = {libvulkan-meta*/}
 ./: $pkgs

@@ -6,19 +6,19 @@ switch $c.target.class
 {
     case 'windows'
     {
-        if($config.vulkan_meta.sdk_root != "")
+        if($config.libvulkan_meta.sdk_root != "")
         {
             vulkan_ld_path =
             if($c.target.cpu == 'x86_64')
             {
-                vulkan_ld_path = "$config.vulkan_meta.sdk_root/lib/"
+                vulkan_ld_path = "$config.libvulkan_meta.sdk_root/lib/"
             }
             else
             {
-                vulkan_ld_path = "$config.vulkan_meta.sdk_root/lib32/"
+                vulkan_ld_path = "$config.libvulkan_meta.sdk_root/lib32/"
             }
 
-            vulkan_poptions =+ "-I$config.vulkan_meta.sdk_root/include/"
+            vulkan_poptions =+ "-I$config.libvulkan_meta.sdk_root/include/"
             vulkan_loptions =+ "/LIBPATH:$vulkan_ld_path"
         }
 
@@ -35,10 +35,10 @@ switch $c.target.class
     }
     case 'macos'
     {
-        if($config.vulkan_meta.sdk_root != "")
+        if($config.libvulkan_meta.sdk_root != "")
         {
-            vulkan_poptions =+ "-I$config.vulkan_meta.sdk_root/include/"
-            vulkan_loptions =+ "-L$config.vulkan_meta.sdk_root/lib/"
+            vulkan_poptions =+ "-I$config.libvulkan_meta.sdk_root/include/"
+            vulkan_loptions =+ "-L$config.libvulkan_meta.sdk_root/lib/"
         }
 
         vulkan_libs += -lvulkan

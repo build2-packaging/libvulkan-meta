@@ -1,0 +1,6 @@
+$out_root/
+{
+  include libvulkan-meta/
+}
+
+export $out_root/libvulkan-meta/$import.target
