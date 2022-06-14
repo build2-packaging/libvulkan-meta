@@ -1,4 +1,4 @@
 : 1
 location: libvulkan-meta/
 :
-location: libvulkan-meta-examples/
+location: vulkan-meta-examples/
