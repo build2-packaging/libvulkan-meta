@@ -30,7 +30,7 @@ jobs:
           submodules: true
       - uses: build2/setup-build2-github-action@v2
         with:
-          build2-version: staged
+          build2-version: latest
       - name: Install dependencies
         run: sudo apt-get update && sudo apt-get install -y libvulkan-dev
       - name: Configure
@@ -59,7 +59,7 @@ jobs:
         cache: true
     - uses: build2/setup-build2-github-action@v2
       with:
-        build2-version: staged
+        build2-version: latest
     - name: Configure
       run: bdep init -C @${{matrix.config.compiler_cc}} cc config.cxx=${{matrix.config.compiler_cxx}}
     - name: Build
@@ -88,9 +88,9 @@ jobs:
         cache: true
     - uses: build2/setup-build2-github-action@v2
       with:
-        build2-version: staged
+        build2-version: latest
         build2-windows-compiler: ${{matrix.config.compiler_cc}}
     - name: Configure
-      run: bdep init -C ../vulkan-meta-${{matrix.config.compiler_cc}} @${{matrix.config.compiler_cc}}
+      run: bdep init -C ../vulkan-meta-${{matrix.config.compiler_cc}} @${{matrix.config.compiler_cc}} cc
     - name: Build
       run: b -V
