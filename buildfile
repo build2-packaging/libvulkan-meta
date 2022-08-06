@@ -1,2 +1,1 @@
-import pkgs = libvulkan-meta/ vulkan-meta-examples/
-./: $pkgs
+./: {*/ -build/} doc{README.md} legal{LICENSE.txt} manifest

@@ -1,1 +1,60 @@
-./: {*/ -build/} doc{README.md} legal{LICENSE.txt} manifest
+vulkan_libs =
+vulkan_poptions =
+vulkan_loptions =
+
+switch $c.target.class
+{
+    case 'windows'
+    {
+        if($config.libvulkan_meta.sdk_root != "")
+        {
+            vulkan_ld_path =
+            if($c.target.cpu == 'x86_64')
+            {
+                vulkan_ld_path = "$config.libvulkan_meta.sdk_root/lib/"
+            }
+            else
+            {
+                vulkan_ld_path = "$config.libvulkan_meta.sdk_root/lib32/"
+            }
+
+            vulkan_poptions =+ "-I$config.libvulkan_meta.sdk_root/include/"
+            vulkan_loptions =+ "/LIBPATH:$vulkan_ld_path"
+        }
+
+        if ($c.target.system == 'mingw32')
+        {
+            vulkan_libs += -lvulkan-1
+        }
+        else
+        {
+            vulkan_libs += vulkan-1.lib
+        }
+
+        vulkan_poptions += -DVK_PROTOTYPES
+    }
+    case 'macos'
+    {
+        if($config.libvulkan_meta.sdk_root != "")
+        {
+            vulkan_poptions =+ "-I$config.libvulkan_meta.sdk_root/include/"
+            vulkan_loptions =+ "-L$config.libvulkan_meta.sdk_root/lib/"
+        }
+
+        vulkan_libs += -lvulkan
+    }
+    case 'linux'
+    case 'bsd'
+    default
+    {
+        vulkan_libs += -lvulkan
+    }
+}
+
+[rule_hint=c] lib{vulkan}:
+lib{vulkan}:
+{
+    c.export.loptions = $vulkan_loptions
+    c.export.poptions = $vulkan_poptions
+    c.export.libs = $vulkan_libs
+}
