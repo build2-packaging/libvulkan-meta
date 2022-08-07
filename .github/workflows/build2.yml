@@ -66,7 +66,7 @@ jobs:
     - name: Build
       run: b -V
     - name: Test
-      run: bdep test -V @cc
+      run: PATH="$PATH:$VULKAN_SDK/lib" && bdep test -V @cc
 
   # Job for building on Windows
   Windows:
@@ -98,4 +98,4 @@ jobs:
     - name: Build
       run: b -V
     - name: Test
-      run: bdep test -V @cc
+      run: $env:Path += "$env:VULKAN_SDK\lib"; bdep test -V @cc
