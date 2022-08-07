@@ -34,11 +34,11 @@ jobs:
       - name: Install dependencies
         run: sudo apt-get update && sudo apt-get install -y libvulkan-dev
       - name: Configure
-        run: bdep init -C @cc cc config.c=${{matrix.config.compiler_cc}}
+        run: bdep init -C @def cc config.c=${{matrix.config.compiler_cc}}
       - name: Build
         run: b -V
       - name: Test
-        run: bdep test -V @cc
+        run: bdep test -V @def
 
   # Job for building on MacOS
   MacOS:
@@ -50,7 +50,6 @@ jobs:
           - name: MacOS clang
             os: macos-latest
             compiler_cc: clang
-            compiler_cxx: clang++
     steps:
     - uses: actions/checkout@v3
       with:
@@ -63,11 +62,11 @@ jobs:
       with:
         build2-version: latest
     - name: Configure
-      run: bdep init -C @cc cc config.cxx=${{matrix.config.compiler_cxx}}
+      run: bdep init -C @def cc config.c=${{matrix.config.compiler_cc}}
     - name: Build
       run: b -V
     - name: Test
-      run: bdep test -V @cc
+      run: bdep test -V @def
 
   # Job for building on Windows
   Windows:
@@ -95,8 +94,8 @@ jobs:
         build2-version: latest
         build2-windows-compiler: ${{matrix.config.compiler_cc}}
     - name: Configure
-      run: bdep init -C ../vulkan-meta-cc @cc cc
+      run: bdep init -C ../libvulkan-meta-def @def cc
     - name: Build
       run: b -V
     - name: Test
-      run: bdep test -V @cc
+      run: bdep test -V @def
