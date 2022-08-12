@@ -65,8 +65,10 @@ jobs:
       run: bdep init -C @cc cc config.c=${{matrix.config.compiler_cc}}
     - name: Build
       run: b -V
+    - name: Add Vulkan to PATH
+      run: echo "$VULKAN_SDK/lib" >> "$GITHUB_PATH"
     - name: Test
-      run: PATH="$PATH:$VULKAN_SDK/lib" && bdep test -V @cc
+      run: bdep test -V @cc
 
   # Job for building on Windows
   Windows:
@@ -97,5 +99,7 @@ jobs:
       run: bdep init -C ../libvulkan-meta-cc @cc cc
     - name: Build
       run: b -V
+    - name: Add Vulkan to PATH
+      run: Add-Content $env:GITHUB_PATH "$env:VULKAN_SDK\lib"
     - name: Test
-      run: $env:Path += "$env:VULKAN_SDK\lib"; bdep test -V @cc
+      run: bdep test -V @cc
