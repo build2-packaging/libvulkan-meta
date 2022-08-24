@@ -1,0 +1,6 @@
+: 1
+name: libvulkan-meta
+version: 1.0.0
+project: vulkan-meta
+summary: Meta package for using Vulkan system libraries.
+license: MIT
