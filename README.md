@@ -11,7 +11,7 @@ The packaging code is licensed under the MIT License.
 You can simply add this package as dependency to your project by specifying it in your `manifest`:
 
 ```
-depends: libvulkan-meta
+depends: libvulkan-meta ^1.0.0
 ```
 
 Then just import the `vulkan` target:
@@ -23,7 +23,7 @@ import opengl_gl_libs = libvulkan-meta%lib{vulkan}
 If you have multiple Vulkan SDKs installed on your system you can specify the config parameter `config.libvulkan_meta.sdk_root` to point to a specific SDK. For example
 
 ```
-config.vulkan_meta.sdk_root=C:/VulkanSDK/1.3.211.0
+config.libvulkan_meta.sdk_root=C:/VulkanSDK/1.3.211.0
 ```
 
 By default this parameter uses the value defined in the environment variable `VULKAN_SDK`.
