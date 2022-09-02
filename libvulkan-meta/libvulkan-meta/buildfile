@@ -58,3 +58,5 @@ lib{vulkan}:
     c.export.poptions = $vulkan_poptions
     c.export.libs = $vulkan_libs
 }
+
+./: lib{vulkan}
