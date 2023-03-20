@@ -54,6 +54,7 @@ switch $c.target.class
 [rule_hint=c] lib{vulkan}:
 lib{vulkan}:
 {
+    c.libs = $vulkan_libs
     c.export.loptions = $vulkan_loptions
     c.export.poptions = $vulkan_poptions
     c.export.libs = $vulkan_libs
